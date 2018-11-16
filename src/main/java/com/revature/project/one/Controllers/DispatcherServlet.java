@@ -22,6 +22,11 @@ public class DispatcherServlet extends HttpServlet {
 		resp.addHeader("Access-Control-Allow-Credentials", "true");
 		resp.setContentType("application/json");
 		
+		if(req.getMethod().equals("OPTIONS")) {
+			resp.setStatus(200);
+			return;
+		}
+		
 		String uri = req.getRequestURI();
 		String context = "ERS";
 		uri = uri.substring(context.length() + 2, uri.length());

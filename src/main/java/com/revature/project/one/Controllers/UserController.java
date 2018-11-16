@@ -117,9 +117,7 @@ public class UserController extends HttpServlet {
 
 		if (uriArray.length == 1) {		
 			if(sUserService.create(req, resp))
-				JwtUtil.attachMessage(resp, 200, "Registration successful, waiting for approval.");
-			else
-				JwtUtil.attachMessage(resp, 300, "Unable to create User.");
+				JwtUtil.attachMessage(resp, 200, "Registration successful, please wait for approval");
 			return;
 		} else if (uriArray.length == 2) {
 			if("login".equals(uriArray[1])) {

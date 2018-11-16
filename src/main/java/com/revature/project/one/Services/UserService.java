@@ -1,5 +1,6 @@
 package com.revature.project.one.Services;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ public interface UserService {
 
 	User login(String tUsername, String tPassword);
 
-	boolean create(HttpServletRequest req, HttpServletResponse resp);
+	boolean create(HttpServletRequest req, HttpServletResponse resp) throws IOException;
 
 	List<User> findSet(int pLimit, int pOffset);
 }
