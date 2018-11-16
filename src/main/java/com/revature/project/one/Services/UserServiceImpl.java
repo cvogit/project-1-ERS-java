@@ -64,9 +64,13 @@ public class UserServiceImpl implements UserService {
 		
 		if( rRequestMap.containsKey("username") && 
 			rRequestMap.containsKey("password") && 	
+			rRequestMap.containsKey("password_confirmation") && 	
 			rRequestMap.containsKey("first_name") &&
 			rRequestMap.containsKey("last_name") &&
 			rRequestMap.containsKey("email")) {
+			
+			if(!req.getParameter("password").equals(req.getParameter("password_confirmation")))
+				return false;
 			
 			User newUser = new User(0,
 					req.getParameter("username"), 
