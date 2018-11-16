@@ -90,6 +90,7 @@ public class UserController extends HttpServlet {
 				Map<String, String> tMap = new HashMap<String, String>();
 				tMap.put("jwt", tToken);
 				tMap.put("roles", Integer.toString(tUser.getRoleId()));
+				tMap.put("username", tUser.getUsername());
 				
 				ResponseMapper.convertAndAttach(tMap, resp);
 				return;
