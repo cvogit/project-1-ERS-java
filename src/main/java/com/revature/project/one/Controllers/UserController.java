@@ -130,10 +130,10 @@ public class UserController extends HttpServlet {
 						String tPassword = req.getParameter("password");
 						User tUser = sUserService.login(tUsername, tPassword);
 
-						if(tUser == null)
+						if(tUser == null || !tUser.isActive()) {
+							JwtUtil.attachMessage(resp, 400, "Cannot login");
 							return;
-						if(!tUser.isActive())
-							return;
+						}
 								
 						resp.setStatus(200);
 						
@@ -143,11 +143,13 @@ public class UserController extends HttpServlet {
 						Map<String, String> tMap = new HashMap<String, String>();
 						tMap.put("jwt", tToken);
 						tMap.put("roles", Integer.toString(tUser.getRoleId()));
+						tMap.put("username", tUser.getUsername());
+						tMap.put("message", "Login success");
 						
 						ResponseMapper.convertAndAttach(tMap, resp);
 						return;
 					} catch (JWTCreationException exception){
-						JwtUtil.attachMessage(resp, 300, "Server errors, summon the programmers from their slumbers.");
+						JwtUtil.attachMessage(resp, 400, "Server errors, summon the programmers from their slumbers.");
 						return;
 					}
 				}
